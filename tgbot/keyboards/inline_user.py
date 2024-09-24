@@ -9,8 +9,8 @@ from datetime import datetime, timedelta
 
 def sub():
     s = InlineKeyboardMarkup()
-    s.row(InlineKeyboardButton(text='Подписаться', url=config.channel_url))
-    s.row(InlineKeyboardButton(text="Проверить ✅", callback_data='subprov'))
+    s.row(InlineKeyboardButton(text='Підписатись', url=config.channel_url))
+    s.row(InlineKeyboardButton(text="Перевірити ✅", callback_data='subprov'))
 
     return s
 
@@ -76,7 +76,7 @@ async def user_menu(texts, user_id):
             keyboard.row(texts.contest)
 
         if user_id in get_admins():
-            keyboard.row("⚙️ Меню Администратора")
+            keyboard.row("⚙️ Меню Адміна")
 
         for button in pr_buttons:
             keyboard.add(button['name'])
@@ -122,7 +122,7 @@ async def contest_inl(texts, con_id, user):
     if count == count_conds:
         kb.add(InlineKeyboardButton(texts.contest_enter, callback_data=f'contest_enter:{con_id}'))
     else:
-        kb.add(InlineKeyboardButton(f"❗ Вы не выполнили все условия! Выполнено {count} из {count_conds}",
+        kb.add(InlineKeyboardButton(f"❗Ви не виконали всі умови! Виповнено {count} из {count_conds}",
                                     callback_data=f'contest_enter3453tfdh'))
 
     return kb
@@ -402,7 +402,7 @@ async def open_positions(texts, cat_id):
             price = pos['price_euro']
         items = f"{len(await db.get_items(position_id=pos_id))}шт"
         if pos['infinity'] == "+":
-            items = "[Безлимит]"
+            items = "[Безліміт]"
         keyboard.add(
             InlineKeyboardButton(f"{name} | {price}{config.currencies[settings['currency']]['sign']} | {items}",
                                  callback_data=f"open_pos:{pos_id}"))
@@ -436,7 +436,7 @@ def choose_buy_items(pos_id, amount):
     keyboard = InlineKeyboardMarkup()
     kb = []
 
-    kb.append(InlineKeyboardButton(f"✅ Да, хочу", callback_data=f"buy_items:yes:{pos_id}:{amount}"))
+    kb.append(InlineKeyboardButton(f"✅ Так, хочу", callback_data=f"buy_items:yes:{pos_id}:{amount}"))
     kb.append(InlineKeyboardButton(f"❌ Нет, не хочу", callback_data=f"buy_items:no:{pos_id}:{amount}"))
 
     keyboard.add(kb[0], kb[1])

@@ -10,17 +10,17 @@ def admin_menu():
     keyboard = InlineKeyboardMarkup()
     kb = []
 
-    kb.append(InlineKeyboardButton("🖤 Общие настройки", callback_data="settings"))
+    kb.append(InlineKeyboardButton("🖤 Загальні налаштування", callback_data="settings"))
     kb.append(InlineKeyboardButton("🎲 Доп. настройки", callback_data="extra_settings"))
-    kb.append(InlineKeyboardButton("❗ Выключатели", callback_data="on_off"))
+    kb.append(InlineKeyboardButton("❗ Вимикачі", callback_data="on_off"))
     kb.append(InlineKeyboardButton("📊 Статистика", callback_data="stats"))
-    kb.append(InlineKeyboardButton("🔍 Искать", callback_data="find:"))
-    kb.append(InlineKeyboardButton("💎 Управление товарами", callback_data="pr_edit"))
-    kb.append(InlineKeyboardButton("📌 Рассылка", callback_data="mail_start"))
-    kb.append(InlineKeyboardButton("💰 Платежные системы", callback_data="payments"))
-    kb.append(InlineKeyboardButton("💫 Рекламные кнопки", callback_data="pr_buttons"))
-    kb.append(InlineKeyboardButton("🧩 Кнопки в рассылке", callback_data="mail_buttons"))
-    kb.append(InlineKeyboardButton("🎉 Розыгрыши", callback_data="contests_admin"))
+    kb.append(InlineKeyboardButton("🔍 Шукати", callback_data="find:"))
+    kb.append(InlineKeyboardButton("💎 Управління товарами", callback_data="pr_edit"))
+    kb.append(InlineKeyboardButton("📌 Розсилка", callback_data="mail_start"))
+    kb.append(InlineKeyboardButton("💰 Платіжні системи", callback_data="payments"))
+    kb.append(InlineKeyboardButton("💫 Рекламні кнопки", callback_data="pr_buttons"))
+    kb.append(InlineKeyboardButton("🧩 Кнопки у розсилці", callback_data="mail_buttons"))
+    kb.append(InlineKeyboardButton("🎉 Розіграші", callback_data="contests_admin"))
     kb.append(InlineKeyboardButton(texts.back, callback_data="back_to_user_menu"))
 
     keyboard.add(kb[0], kb[1])
@@ -41,14 +41,14 @@ async def contests_inl():
     s = await db.get_contests_settings()
     cur = (await db.get_settings())['currency']
 
-    btn0 = InlineKeyboardButton(f'✨ Кол-во победителей | {s["winners_num"]} {convert_words(s["winners_num"], ["человек", "человека", "людей"])}', callback_data='edit_winners_contest')
+    btn0 = InlineKeyboardButton(f'✨ Кількість переможців | {s["winners_num"]} {convert_words(s["winners_num"], ["человек", "человека", "людей"])}', callback_data='edit_winners_contest')
     btn1 = InlineKeyboardButton(f'💰 Приз | {s["prize"]}{currencies[cur]["sign"]}', callback_data='edit_prize_contest')
-    btn2 = InlineKeyboardButton(f'❗ Условия', callback_data='contest_conditions')
-    btn3 = InlineKeyboardButton(f'💥 Кол-во участников | {s["members_num"]} {convert_words(s["winners_num"], ["человек", "человека", "людей"])}', callback_data="edit_members_contest")
-    btn4 = InlineKeyboardButton(f'🌐 Закончить розыгрыш через {s["end_time"]} {convert_time(s["end_time"], "seconds")}',
+    btn2 = InlineKeyboardButton(f'❗ Умови', callback_data='contest_conditions')
+    btn3 = InlineKeyboardButton(f'💥 Кол-во участників| {s["members_num"]} {convert_words(s["winners_num"], ["человек", "человека", "людей"])}', callback_data="edit_members_contest")
+    btn4 = InlineKeyboardButton(f'🌐 Закінчити розіграш через {s["end_time"]} {convert_time(s["end_time"], "seconds")}',
                                 callback_data='edit_end_time_contest')
-    btn5 = InlineKeyboardButton(f"❌ Закончить розыгрыш сейчас", callback_data="cancel_contest_now")
-    btn6 = InlineKeyboardButton(f'⭐ Начать розыгрыш', callback_data='create_contest')
+    btn5 = InlineKeyboardButton(f"❌ Закінчити розіграш зараз", callback_data="cancel_contest_now")
+    btn6 = InlineKeyboardButton(f'⭐ Начать розіграш', callback_data='create_contest')
     btn7 = InlineKeyboardButton(texts.back, callback_data='settings_back')
 
     kb.add(btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7)
@@ -105,8 +105,8 @@ def cancel_contest_now_yes_no(contest_id):
     keyboard = InlineKeyboardMarkup()
     kb = []
 
-    kb.append(InlineKeyboardButton(f"✅ Да, хочу", callback_data=f"cancel_contest_:yes:{contest_id}"))
-    kb.append(InlineKeyboardButton(f"❌ Нет, не хочу", callback_data=f"cancel_contest_:no:{contest_id}"))
+    kb.append(InlineKeyboardButton(f"✅ Так, хочу", callback_data=f"cancel_contest_:yes:{contest_id}"))
+    kb.append(InlineKeyboardButton(f"❌ Ні, не хочу", callback_data=f"cancel_contest_:no:{contest_id}"))
 
     keyboard.add(kb[0], kb[1])
 
@@ -119,9 +119,9 @@ async def contests_conditions_inl():
 
     channels_count = len(get_channels(s['channels_ids']))
 
-    btn0 = InlineKeyboardButton(f'🛒 Кол-во покупок | {s["purchases_num"]} {convert_words(s["purchases_num"], ["покупка", "покупки", "покупок"])}', callback_data='edit_con_conds:purchases')
-    btn1 = InlineKeyboardButton(f'💳 Кол-во пополнений | {s["refills_num"]} {convert_words(s["refills_num"], ["пополнение", "пополнения", "пополнений"])}', callback_data='edit_con_conds:refills')
-    btn2 = InlineKeyboardButton(f'💎 ID Каналов для подписки | Кол-во: {channels_count} шт.', callback_data='edit_con_conds:channels_ids')
+    btn0 = InlineKeyboardButton(f'🛒 Кількість покупок| {s["purchases_num"]} {convert_words(s["purchases_num"], ["покупка", "покупки", "покупок"])}', callback_data='edit_con_conds:purchases')
+    btn1 = InlineKeyboardButton(f'💳 Кількість поповнень| {s["refills_num"]} {convert_words(s["refills_num"], ["пополнение", "пополнения", "пополнений"])}', callback_data='edit_con_conds:refills')
+    btn2 = InlineKeyboardButton(f'💎 ID Каналів для підписки | Кол-во: {channels_count} шт.', callback_data='edit_con_conds:channels_ids')
     btn3 = InlineKeyboardButton(texts.back, callback_data='contests')
 
     kb.add(btn0, btn1, btn2, btn3)
@@ -132,8 +132,8 @@ async def contests_conditions_inl():
 def mail_buttons_inl():
     kb = InlineKeyboardMarkup(row_width=1)
 
-    btn0 = InlineKeyboardButton('+ Создать кнопку', callback_data='mail_buttons:add')
-    btn2 = InlineKeyboardButton('Текущие кнопки', callback_data='mail_buttons:current')
+    btn0 = InlineKeyboardButton('+ Створити кнопку', callback_data='mail_buttons:add')
+    btn2 = InlineKeyboardButton('Поточні кнопки', callback_data='mail_buttons:current')
     btn3 = InlineKeyboardButton(texts.back, callback_data='settings_back')
 
     kb.add(btn0, btn2, btn3)
@@ -143,15 +143,15 @@ def mail_buttons_inl():
 
 def get_type(name, type):
     if type == 'link':
-        return f'{name} (Ссылка)'
+        return f'{name} (Ссилка)'
     elif type == 'category_open':
-        return f'{name} (Категория)'
+        return f'{name} (Категорія)'
     elif type == 'pod_category_open':
-        return f'{name} (Под-Категория)'
+        return f'{name} (Під-Категорії)'
     elif type == 'position_open':
-        return f'{name} (Позиция)'
+        return f'{name} (Позиції)'
     elif type == "contest_open":
-        return f'{name} (Розыгрыш)'
+        return f'{name} (Розіграш)'
 
 
 async def mail_buttons_current_inl():
@@ -169,8 +169,8 @@ async def mail_buttons_current_inl():
 def mail_buttons_edit_inl(btn_id):
     kb = InlineKeyboardMarkup()
 
-    kb.add(InlineKeyboardButton('⭐ Изменить название', callback_data=f'edits_mail_btn:edit_name:{btn_id}'))
-    kb.add(InlineKeyboardButton('❗ Удалить', callback_data=f'edits_mail_btn:del:{btn_id}'))
+    kb.add(InlineKeyboardButton('⭐ Змінити назву', callback_data=f'edits_mail_btn:edit_name:{btn_id}'))
+    kb.add(InlineKeyboardButton('❗ Видалити', callback_data=f'edits_mail_btn:del:{btn_id}'))
     kb.add(InlineKeyboardButton(texts.back, callback_data=f'mail_buttons:current'))
 
     return kb
@@ -179,11 +179,11 @@ def mail_buttons_edit_inl(btn_id):
 def mail_buttons_type_inl():
     kb = InlineKeyboardMarkup(row_width=1)
 
-    btn0 = InlineKeyboardButton('Кнопка открытия категории', callback_data='add_mail_buttons:category')
-    btn1 = InlineKeyboardButton('Кнопка открытия под-категории', callback_data='add_mail_buttons:pod_category')
-    btn2 = InlineKeyboardButton('Кнопка открытия позиции', callback_data='add_mail_buttons:position')
-    btn3 = InlineKeyboardButton('Кнопка-ссылка', callback_data='add_mail_buttons:link')
-    btn4 = InlineKeyboardButton('Кнопка открытия розыгрыша', callback_data='add_mail_buttons:contest')
+    btn0 = InlineKeyboardButton('Кнопка відкриття категорії', callback_data='add_mail_buttons:category')
+    btn1 = InlineKeyboardButton('Кнопка відкриття підкатегорії', callback_data='add_mail_buttons:pod_category')
+    btn2 = InlineKeyboardButton('Кнопка відкриття позиції', callback_data='add_mail_buttons:position')
+    btn3 = InlineKeyboardButton('Кнопка-ссилка', callback_data='add_mail_buttons:link')
+    btn4 = InlineKeyboardButton('Кнопка відкриття розіграша', callback_data='add_mail_buttons:contest')
     btn5 = InlineKeyboardButton(texts.back, callback_data='mail_buttons')
 
     kb.add(btn0, btn1, btn2, btn3, btn4, btn5)
@@ -195,8 +195,8 @@ def mail_buttons_contest_yes_no(contest_id):
     keyboard = InlineKeyboardMarkup()
     kb = []
 
-    kb.append(InlineKeyboardButton("✅ Да, хочу", callback_data=f"mail_button_create_contest:yes:{contest_id}"))
-    kb.append(InlineKeyboardButton("❌ Нет, не хочу", callback_data=f"mail_button_create_contest:no:{contest_id}"))
+    kb.append(InlineKeyboardButton("✅ Так, хочу", callback_data=f"mail_button_create_contest:yes:{contest_id}"))
+    kb.append(InlineKeyboardButton("❌ Ні, не хочу", callback_data=f"mail_button_create_contest:no:{contest_id}"))
 
     keyboard.add(kb[0], kb[1])
 
@@ -226,10 +226,10 @@ def extra_settings_inl():
     kb = []
 
 
-    kb.append(InlineKeyboardButton(f"💎 Создать промокод", callback_data="promo_create"))
-    kb.append(InlineKeyboardButton(f"🎲 Удалить промокод", callback_data="promo_delete"))
-    kb.append(InlineKeyboardButton(f"2️⃣ Изменить кол-во рефералов для 2 лвла", callback_data="ref_lvl_edit:2"))
-    kb.append(InlineKeyboardButton(f"3️⃣ Изменить кол-во рефералов для 3 лвла", callback_data="ref_lvl_edit:3"))
+    kb.append(InlineKeyboardButton(f"💎 Створити промокод", callback_data="promo_create"))
+    kb.append(InlineKeyboardButton(f"🎲 Видалити промокод", callback_data="promo_delete"))
+    kb.append(InlineKeyboardButton(f"2️⃣ Змінити кількість рефералів для 2 лвла", callback_data="ref_lvl_edit:2"))
+    kb.append(InlineKeyboardButton(f"3️⃣ Змінити кількість рефералів для 3 лвла", callback_data="ref_lvl_edit:3"))
     kb.append(InlineKeyboardButton(texts.back, callback_data="settings_back"))
 
     keyboard.add(kb[0], kb[1])
@@ -244,8 +244,8 @@ def pr_buttons_inl():
     kb = []
 
 
-    kb.append(InlineKeyboardButton(f"+ Создать кнопку", callback_data="pr_button:create"))
-    kb.append(InlineKeyboardButton(f"- Удалить кнопку", callback_data="pr_button:delete"))
+    kb.append(InlineKeyboardButton(f"+ Створити кнопку", callback_data="pr_button:create"))
+    kb.append(InlineKeyboardButton(f"- Видалити кнопку", callback_data="pr_button:delete"))
     kb.append(InlineKeyboardButton(texts.back, callback_data="settings_back"))
 
     keyboard.add(kb[0], kb[1])
@@ -318,15 +318,15 @@ async def on_off_inl():
     else:
         lang_emoji = "❌"
 
-    kb.append(InlineKeyboardButton(f"Тех. Работы | {work_emoji}", callback_data="work:on_off"))
+    kb.append(InlineKeyboardButton(f"Тех. Роботи | {work_emoji}", callback_data="work:on_off"))
     kb.append(InlineKeyboardButton(f"Покупки | {buy_emoji}", callback_data="buys:on_off"))
-    kb.append(InlineKeyboardButton(f"Пополнения | {refill_emoji}", callback_data="refills:on_off"))
+    kb.append(InlineKeyboardButton(f"Поповнення | {refill_emoji}", callback_data="refills:on_off"))
     kb.append(InlineKeyboardButton(f"Реф. Система | {ref_emoji}", callback_data="ref:on_off"))
-    kb.append(InlineKeyboardButton(f"Розыгрыши | {contests_emoji}", callback_data="contests:on_off"))
-    kb.append(InlineKeyboardButton(f"Мульти-язычность | {lang_emoji}", callback_data="multi_lang:on_off"))
-    kb.append(InlineKeyboardButton(f"Увед. О новых юзерах | {notify_emoji}", callback_data="notify:on_off"))
-    kb.append(InlineKeyboardButton(f"Проверка подписки | {sub_emoji}", callback_data="sub:on_off"))
-    kb.append(InlineKeyboardButton(f"Главное меню | {key}", callback_data="keyboard:on_off"))
+    kb.append(InlineKeyboardButton(f"Розіграші | {contests_emoji}", callback_data="contests:on_off"))
+    kb.append(InlineKeyboardButton(f"Мульти-язичність | {lang_emoji}", callback_data="multi_lang:on_off"))
+    kb.append(InlineKeyboardButton(f"Пов. О нових користувачів | {notify_emoji}", callback_data="notify:on_off"))
+    kb.append(InlineKeyboardButton(f"Перевірка підписки | {sub_emoji}", callback_data="sub:on_off"))
+    kb.append(InlineKeyboardButton(f"Головне меню | {key}", callback_data="keyboard:on_off"))
     kb.append(InlineKeyboardButton(texts.back, callback_data="settings_back"))
 
     keyboard.add(kb[0], kb[1])
