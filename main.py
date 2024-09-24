@@ -31,7 +31,6 @@ async def on_startup(dp: Dispatcher):
 
     print(colorama.Fore.GREEN + "=======================")
     print(colorama.Fore.RED + "Bot Was Started")
-    print(colorama.Fore.LIGHTBLUE_EX + "Developer: https://spiredcode.ru")
     print(colorama.Fore.RESET)
 
 
